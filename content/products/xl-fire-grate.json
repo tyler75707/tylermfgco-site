@@ -1,0 +1,26 @@
+{
+  "active": true,
+  "slug": "xl-stainless-fire-grate",
+  "name": "304 Stainless Steel Fire Grate",
+  "fitsLine": "Fits XL Big Green Egg®",
+  "trademarkNote": "Big Green Egg® is a registered trademark of its owner. Tyler Manufacturing is not affiliated with or endorsed by Big Green Egg.",
+  "price": 119.99,
+  "currency": "USD",
+  "sku": "ASK_JOSH",
+  "shortDescription": "A replacement fire grate laser cut from 1/4\" 304 stainless steel, made to outlast the cast iron original that rusts out.",
+  "description": "ASK JOSH to review: Cast iron fire grates rust and crack over time. This one is laser cut in Nacogdoches, Texas from 1/4\" thick 304 stainless steel, so it stands up to heat and weather far longer. Drop-in replacement for the fire grate in an XL Big Green Egg.",
+  "specs": {
+    "Material": "304 stainless steel",
+    "Thickness": "1/4\"",
+    "Diameter": "ASK_JOSH",
+    "Hole/slot pattern": "ASK_JOSH",
+    "Weight": "ASK_JOSH"
+  },
+  "photos": [
+    { "file": "", "alt": "PHOTO: Fire grate on a workbench, top view", "placeholder": true },
+    { "file": "", "alt": "PHOTO: Fire grate installed in the firebox", "placeholder": true },
+    { "file": "", "alt": "PHOTO: Edge close-up showing the 1/4\" thickness", "placeholder": true }
+  ],
+  "paymentLink": "",
+  "availability": "in_stock"
+}

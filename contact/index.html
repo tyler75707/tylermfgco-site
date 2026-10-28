@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request a quote | Tyler Manufacturing</title>
+<meta name="description" content="Tell us about your part. We'll reply within one business day.">
+<!-- BUILD:head -->
+<link rel="icon" href="/assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="/assets/css/style.css">
+<meta name="theme-color" content="#2B2B2B">
+<!-- /BUILD:head -->
+</head>
+<body>
+<!-- BUILD:header -->
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="/" aria-label="Tyler Manufacturing home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 96" role="img" aria-label="Tyler Manufacturing" fill="none">
+  <!-- Option 1: horizontal riveted nameplate. One color: everything uses currentColor. -->
+  <rect x="2" y="2" width="356" height="92" rx="12" stroke="currentColor" stroke-width="3"/>
+  <rect x="10" y="10" width="340" height="76" rx="6" stroke="currentColor" stroke-width="1.25"/>
+  <g fill="currentColor">
+    <circle cx="21" cy="21" r="3.5"/>
+    <circle cx="339" cy="21" r="3.5"/>
+    <circle cx="21" cy="75" r="3.5"/>
+    <circle cx="339" cy="75" r="3.5"/>
+    <text x="180" y="56" text-anchor="middle" font-family="Oswald, 'Arial Narrow', Impact, sans-serif" font-weight="700" font-size="32" textLength="290" lengthAdjust="spacingAndGlyphs">TYLER MANUFACTURING</text>
+    <rect x="70" y="66" width="44" height="1.5"/>
+    <rect x="246" y="66" width="44" height="1.5"/>
+    <text x="180" y="71" text-anchor="middle" font-family="Oswald, 'Arial Narrow', Impact, sans-serif" font-weight="500" font-size="10.5" textLength="120" lengthAdjust="spacingAndGlyphs">NACOGDOCHES, TEXAS</text>
+  </g>
+</svg></a>
+    <nav class="main-nav" aria-label="Main">
+      <ul>
+        <li><a href="/capabilities/">Capabilities</a></li>
+        <li><a href="/quality/">Quality</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/shop/">Shop</a></li>
+        <li><a class="btn btn-small" href="/contact/" aria-current="page">Request a quote</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<!-- /BUILD:header -->
+<main id="main">
+
+  <div class="wrap page-head">
+    <h1>Request a quote</h1>
+    <p class="lede">Tell us about your part. We'll reply within one business day.</p>
+    <p>Email: <a href="mailto:sales@tylermfgco.com">sales@tylermfgco.com</a></p>
+  </div>
+
+  <div class="wrap contact-layout">
+    <form id="quote-form" class="quote-form" action="https://api.web3forms.com/submit" method="POST"
+          data-ref-prefix="TM" data-email="sales@tylermfgco.com">
+      <!-- BUILD:web3forms-key -->
+<input type="hidden" name="access_key" value="REPLACE_WITH_WEB3FORMS_ACCESS_KEY">
+<!-- /BUILD:web3forms-key -->
+      <input type="hidden" name="subject" value="Quote request">
+      <input type="hidden" name="from_name" value="tylermfgco.com quote form">
+      <!-- Used only when JavaScript is off; with JavaScript, quote.js sends the form and adds the reference number. -->
+      <input type="hidden" name="redirect" value="https://tylermfgco.com/contact/thank-you/">
+      <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div class="field-row">
+        <div class="field">
+          <label for="f-name">Name</label>
+          <input type="text" id="f-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="f-company">Company <span class="optional">(optional)</span></label>
+          <input type="text" id="f-company" name="Company" autocomplete="organization">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input type="email" id="f-email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="f-phone">Phone <span class="optional">(optional)</span></label>
+          <input type="tel" id="f-phone" name="Phone" autocomplete="tel">
+        </div>
+      </div>
+
+      <fieldset>
+        <legend>What do you need? <span class="optional">(pick at least one)</span></legend>
+        <div class="checks">
+          <label><input type="checkbox" name="What do you need" value="Laser cutting"> Laser cutting</label>
+          <label><input type="checkbox" name="What do you need" value="3D printing"> 3D printing</label>
+          <label><input type="checkbox" name="What do you need" value="Powder coating"> Powder coating</label>
+          <label><input type="checkbox" name="What do you need" value="Design help"> Design help</label>
+          <label><input type="checkbox" name="What do you need" value="Not sure"> Not sure</label>
+        </div>
+      </fieldset>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="f-material">Material, if known <span class="optional">(optional)</span></label>
+          <input type="text" id="f-material" name="Material">
+        </div>
+        <div class="field">
+          <label for="f-qty">Quantity</label>
+          <input type="text" id="f-qty" name="Quantity" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="f-date">Needed by <span class="optional">(optional)</span></label>
+        <input type="date" id="f-date" name="Needed by" style="max-width: 16rem;">
+      </div>
+
+      <div class="field">
+        <label for="f-desc">Description</label>
+        <textarea id="f-desc" name="Description" required aria-describedby="f-desc-hint"></textarea>
+        <p class="hint" id="f-desc-hint">What the part is, what it's for, and anything we should know. Drawings come next: after you send this, you'll get a reference number to email them with.</p>
+      </div>
+
+      <button class="btn btn-lg" type="submit">Send request</button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+
+    <aside class="aside-box" aria-labelledby="drawings-title">
+      <h2 id="drawings-title">Sending drawings</h2>
+      <p>After you send the form, you'll get a quote reference number. Email your drawings to <a href="mailto:sales@tylermfgco.com">sales@tylermfgco.com</a> with that number in the subject line.</p>
+      <p>We accept DXF, DWG, STEP/STP, PDF, JPG and PNG files.</p>
+    </aside>
+  </div>
+
+</main>
+<!-- BUILD:footer -->
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div>
+      <p class="footer-name">Tyler Manufacturing, LLC</p>
+      <p>Nacogdoches, Texas</p>
+      <p><a href="mailto:sales@tylermfgco.com">sales@tylermfgco.com</a></p>
+    </div>
+    <nav aria-label="Footer">
+      <ul class="footer-links">
+        <li><a href="/capabilities/">Capabilities</a></li>
+        <li><a href="/quality/">Quality</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/shop/">Shop</a></li>
+        <li><a href="/contact/">Request a quote</a></li>
+        <li><a href="/privacy/">Privacy</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap"><p class="copyright">&copy; 2026 Tyler Manufacturing, LLC</p></div>
+</footer>
+<!-- /BUILD:footer -->
+<script src="/assets/js/quote.js" defer></script>
+</body>
+</html>

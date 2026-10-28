@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 96" role="img" aria-label="Tyler Manufacturing" fill="none">
+  <!-- Option 1: horizontal riveted nameplate. One color: everything uses currentColor. -->
+  <rect x="2" y="2" width="356" height="92" rx="12" stroke="currentColor" stroke-width="3"/>
+  <rect x="10" y="10" width="340" height="76" rx="6" stroke="currentColor" stroke-width="1.25"/>
+  <g fill="currentColor">
+    <circle cx="21" cy="21" r="3.5"/>
+    <circle cx="339" cy="21" r="3.5"/>
+    <circle cx="21" cy="75" r="3.5"/>
+    <circle cx="339" cy="75" r="3.5"/>
+    <text x="180" y="56" text-anchor="middle" font-family="Oswald, 'Arial Narrow', Impact, sans-serif" font-weight="700" font-size="32" textLength="290" lengthAdjust="spacingAndGlyphs">TYLER MANUFACTURING</text>
+    <rect x="70" y="66" width="44" height="1.5"/>
+    <rect x="246" y="66" width="44" height="1.5"/>
+    <text x="180" y="71" text-anchor="middle" font-family="Oswald, 'Arial Narrow', Impact, sans-serif" font-weight="500" font-size="10.5" textLength="120" lengthAdjust="spacingAndGlyphs">NACOGDOCHES, TEXAS</text>
+  </g>
+</svg>

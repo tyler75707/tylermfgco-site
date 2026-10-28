@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Favicon from option 1: a small riveted plate stamped with a T. Swap if Josh picks another direction. -->
+  <rect x="2" y="8" width="60" height="48" rx="8" fill="#2B2B2B"/>
+  <rect x="6.5" y="12.5" width="51" height="39" rx="4.5" fill="none" stroke="#F3EFE6" stroke-width="2"/>
+  <g fill="#F3EFE6">
+    <circle cx="12.5" cy="18.5" r="2"/>
+    <circle cx="51.5" cy="18.5" r="2"/>
+    <circle cx="12.5" cy="45.5" r="2"/>
+    <circle cx="51.5" cy="45.5" r="2"/>
+    <path d="M20 19h24v7h-8.5v20h-7V26H20z"/>
+  </g>
+</svg>
