@@ -86,9 +86,9 @@ Write `alt` as a short description of what's actually in the photo. Set `width` 
 
 `file` is the name of the photo in `assets/photos/`. The first photo is the main one (also used in the shop grid and on Google). Run `build.ps1` afterwards.
 
-## Pick a logo
+## Logo
 
-Open http://localhost:5180/logo-options.html while previewing. The three SVG files are in `assets/logo/`. The header uses option 1. To switch, change `option-1-nameplate.svg` in `build.ps1` (the line `$logo1 = Svg-Inline ...`) to the file you picked and run the build. The favicon (`assets/logo/favicon.svg`) is drawn from option 1; it may need redrawing for another option.
+The logo is option 1, the riveted nameplate: `assets/logo/option-1-nameplate.svg`. The build copies it into every page header, so after editing the file, run `build.ps1`. The favicon (`assets/logo/favicon.svg`) is drawn from it. The two options that weren't picked are kept in `assets/logo/` and shown on http://localhost:5180/logo-options.html.
 
 The logo text uses the Oswald font. Before the logo goes on anything printed, have the lettering converted to outlines (any vector editor can do it) so it looks the same everywhere.
 
