@@ -73,8 +73,15 @@ $promoOn = [bool]$site.promoBanner.enabled
 $promoHtml = ''
 if ($promoOn) { $promoHtml = '<p class="promo">' + (Enc $site.promoBanner.text) + '</p>' }
 
+# Shop switch (content/site.json -> shopEnabled). Off: no Shop links, no product pages,
+# no home teaser, and the remaining /shop/ pages are marked noindex. Missing counts as on.
+$shopOn = ($null -eq $site.shopEnabled) -or ($site.shopEnabled -eq $true)
+$shopLink = ''
+if ($shopOn) { $shopLink = '        <li><a href="/shop/">Shop</a></li>' }
+
 $logo1 = Svg-Inline 'option-1-nameplate.svg'
 $tokens = [ordered]@{
+  shopLink  = $shopLink
   siteName  = Enc $site.siteName
   legalName = Enc $site.legalName
   location  = Enc $site.location
@@ -84,7 +91,7 @@ $tokens = [ordered]@{
   logo      = $logo1
 }
 $partials = @{}
-foreach ($p in 'head', 'header', 'shop-header', 'footer', 'shop-footer') {
+foreach ($p in 'head', 'header', 'shop-header', 'footer', 'shop-footer', 'privacy-shop') {
   $partials[$p] = Fill (Read-Text (Join-Path $Root "partials/$p.html")) $tokens
 }
 
@@ -139,12 +146,12 @@ function Availability($p) {
 $template = Read-Text (Join-Path $Root 'templates/product.html')
 foreach ($p in $products) {
   $out = Join-Path $Root "shop/$($p.slug)/index.html"
-  if ($p.active -ne $true) {
+  if (-not $shopOn -or $p.active -ne $true) {
     if ((Test-Path $out) -and ((Read-Text $out).Contains($GeneratedMarker))) {
       Remove-Item $out
       $dir = Split-Path -Parent $out
       if (-not (Get-ChildItem $dir -Force)) { Remove-Item $dir }
-      Write-Host "Removed inactive product page shop/$($p.slug)/"
+      Write-Host "Removed product page shop/$($p.slug)/ (inactive, or the shop is off)"
     }
     continue
   }
@@ -260,8 +267,11 @@ function Card-Html($p) {
 "@
 }
 
-if ($active.Count -gt 0) {
-  $grid = '<div class="product-grid">' + "`n" + (($active | ForEach-Object { Card-Html $_ }) -join "`n") + '</div>'
+if (-not $shopOn) {
+  $grid = '<p>The shop opens soon.</p>'
+  $homeShop = ''
+} elseif ($active.Count -gt 0) {
+  $grid ='<div class="product-grid">' + "`n" + (($active | ForEach-Object { Card-Html $_ }) -join "`n") + '</div>'
   $p = $active[0]
   $href = "/shop/$($p.slug)/"
   $homeShop = @"
@@ -282,9 +292,12 @@ if ($active.Count -gt 0) {
   $homeShop = ''
 }
 
+$privacyShop = ''
+if ($shopOn) { $privacyShop = $partials['privacy-shop'] }
+
 $regions = @{
-  'head'          = $partials['head']
   'shop-grid'     = $grid
+  'privacy-shop'  = $privacyShop
   'home-shop'     = $homeShop
   'shipping-flat' = Money $site.shopShippingFlat
   'ship-cutoff'   = Enc $site.shipCutoff
@@ -320,15 +333,24 @@ foreach ($file in $pages) {
     $footer = $partials['footer']
   }
 
+  $head = $partials['head']
+  if ($isShop -and -not $shopOn) { $head += "`n<meta name=""robots"" content=""noindex"">" }
+
   $html = Read-Text $file.FullName
   $new = $html
+  $new = Set-Region $new 'head' $head
   $new = Set-Region $new 'header' $header
   $new = Set-Region $new 'footer' $footer
   foreach ($k in $regions.Keys) { $new = Set-Region $new $k $regions[$k] }
   if ($new -ne $html) { Write-Text $file.FullName $new; $changed++ }
 }
 
-Write-Host "Built: $($active.Count) active product(s), $($pages.Count) page(s) checked, $changed updated."
+if ($shopOn) {
+  Write-Host "Built: shop ON, $($active.Count) active product(s), $($pages.Count) page(s) checked, $changed updated."
+} else {
+  Write-Host "Built: shop OFF (content/site.json -> shopEnabled), $($pages.Count) page(s) checked, $changed updated."
+  Write-Host 'Product checks are skipped while the shop is off; turn it on to see them.'
+}
 if ($Warnings.Count -gt 0) {
   Write-Host ''
   Write-Host 'Still to do:' -ForegroundColor Yellow

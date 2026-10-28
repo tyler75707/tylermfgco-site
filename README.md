@@ -30,6 +30,21 @@ It rewrites the generated parts of the pages in place and prints a "Still to do"
 
 How it works: each page has marked regions like `<!-- BUILD:footer -->` ... `<!-- /BUILD:footer -->`. The build replaces what's between the markers. Edit everything outside the markers by hand as normal; don't edit inside them (your change would be overwritten).
 
+## Turn the shop on or off
+
+The shop is **off** for now: `content/site.json` → `"shopEnabled": false`. While it's off:
+
+- there's no Shop link in the header or footer, and no shop teaser on the home page
+- no product pages are published (the build removes the ones it made), and `/shop/` just says "The shop opens soon"
+- the shop's Shipping, Returns and thank-you pages still exist, so links and Stripe redirects work later, but they tell search engines not to list them and nothing links to them
+- the privacy page leaves out the paragraph about shop orders
+
+Product files in `content/products/` are kept as they are, ready to go.
+
+To open the shop, set `"shopEnabled": true` and run `build.ps1`. Everything above comes back, and the "Still to do" list shows anything a product is missing (payment link, photos, ASK JOSH items). To close it again, set it back to `false` and run the build.
+
+To look at the shop on your computer before opening it, turn it on, build and preview. Then set it back to `false` and build again **before you commit**, or the shop goes live with your next push.
+
 ## Add a shop product
 
 1. Copy `content/products/xl-fire-grate.json` to a new file, e.g. `content/products/bottle-opener.json`, and fill it in:
@@ -106,7 +121,7 @@ See `docs/github-pages-dns.md`. The `CNAME` file already holds `tylermfgco.com`;
 
 | Path | What it is |
 |---|---|
-| `content/site.json` | Site-wide settings: email, shipping rate, cut-off text, promo banner, form key |
+| `content/site.json` | Site-wide settings: shop on/off, email, shipping rate, cut-off text, promo banner, form key |
 | `content/products/` | One JSON file per product, plus `index.json` listing them |
 | `partials/` | Shared head, header and footer (main site and shop versions) |
 | `templates/product.html` | Layout for product pages |

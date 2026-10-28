@@ -8,6 +8,7 @@
   "web3formsAccessKey": "REPLACE_WITH_WEB3FORMS_ACCESS_KEY",
   "acceptedDrawingTypes": ["DXF", "DWG", "STEP/STP", "PDF", "JPG", "PNG"],
   "quoteReferencePrefix": "TM",
+  "shopEnabled": false,
   "shopShippingFlat": 9.99,
   "shipCutoff": "Orders placed by noon Central ship the same business day; orders after noon ship the next business day.",
   "promoBanner": {
