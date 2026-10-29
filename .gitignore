@@ -6,3 +6,6 @@ desktop.ini
 # Private planning notes: kept on this computer, never pushed
 docs/
 CLAUDE.md
+
+# Separate private backup repo for docs/ and CLAUDE.md (see CLAUDE.md)
+.git-notes/
