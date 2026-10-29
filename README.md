@@ -6,7 +6,7 @@ The Tyler Manufacturing website: plain HTML, CSS and a little JavaScript. No fra
 - Shop: `/shop/`, one folder per product (`/shop/<slug>/`), `/shop/shipping/`, `/shop/returns/`, `/shop/thank-you/`
 - Not linked anywhere: `/logo-options.html` (pick a logo) and `404.html`
 
-Planning docs, page specs and brand notes are in `docs/`. `CLAUDE.md` holds the rules for Claude Code.
+Planning docs, page specs and brand notes are in `docs/`, and `CLAUDE.md` holds the rules for Claude Code. Both are private: `.gitignore` keeps them on this computer and out of the public repo, so back them up separately.
 
 ## Preview it on your computer
 

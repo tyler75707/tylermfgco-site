@@ -2,3 +2,7 @@
 Thumbs.db
 desktop.ini
 .claude/settings.local.json
+
+# Private planning notes: kept on this computer, never pushed
+docs/
+CLAUDE.md
