@@ -188,7 +188,8 @@ a:hover { color: var(--rust-dark); }
 .ph-4x3 { aspect-ratio: 4 / 3; }
 .ph-1x1 { aspect-ratio: 1 / 1; }
 .ph-16x9 { aspect-ratio: 16 / 9; }
-.photo { width: 100%; border-radius: var(--radius); object-fit: cover; }
+.photo { display: block; width: 100%; height: auto; border-radius: var(--radius); object-fit: cover; }
+.quality-photo { max-width: 760px; margin-bottom: 32px; }
 
 /* Tiles (home "What we do") */
 .tiles { display: grid; gap: 24px; grid-template-columns: 1fr; }
