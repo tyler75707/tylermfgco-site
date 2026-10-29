@@ -113,11 +113,17 @@ The form sends through Web3Forms, which emails each request to sales@tylermfgco.
 
 Each request gets a reference number like `TM-261028-4F7Q`. It's in the email subject and on the thank-you page, and customers are asked to put it in the subject when they email drawings.
 
-## Google Analytics
+## Google Analytics and Google Ads
 
 The site uses Google Analytics in its own "Tyler Manufacturing" account. The Measurement ID is in `content/site.json` → `googleAnalyticsId`. The build adds the Google tag to every page and adds a "How the site is used" paragraph to the privacy page. Set it to `""` and run the build to remove both; the privacy page then says the site has no analytics.
 
-If you later add advertising tags (Google Ads, Meta Pixel) or turn on Google signals in Analytics, update the privacy page too: it currently says the site has no advertising trackers.
+**Google Ads is ready but off.** When you start advertising, put your Google Ads tag ID (`AW-` followed by numbers; in Google Ads under Goals → Conversions → Google tag) in `content/site.json` → `googleAdsId` and run the build. That one setting:
+
+- adds the Ads tag to every page, sharing the same Google tag as Analytics
+- adds "Advertising" and "Your rights" sections to the privacy page: targeted ads, the opt-out links, and how to ask for data to be seen, fixed or deleted
+- changes "we don't use advertising trackers" to match
+
+Set it back to `""` and build to remove it all again. Also change the "Last updated" date at the bottom of the privacy page by hand whenever its wording changes. Turning on Google signals in Analytics is covered by the same Advertising section, so do that only with Ads on. A Meta Pixel would need its own wording added first.
 
 ## Going live
 
@@ -127,7 +133,7 @@ See `docs/github-pages-dns.md`. The `CNAME` file already holds `tylermfgco.com`;
 
 | Path | What it is |
 |---|---|
-| `content/site.json` | Site-wide settings: shop on/off, email, shipping rate, cut-off text, promo banner, form key, analytics ID |
+| `content/site.json` | Site-wide settings: shop on/off, email, shipping rate, cut-off text, promo banner, form key, Analytics and Ads IDs |
 | `content/products/` | One JSON file per product, plus `index.json` listing them |
 | `partials/` | Shared head, header and footer (main site and shop versions) |
 | `templates/product.html` | Layout for product pages |

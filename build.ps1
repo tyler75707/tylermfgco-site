@@ -85,6 +85,18 @@ $gaId = [string]$site.googleAnalyticsId
 $gaOn = $gaId -match '^G-[A-Z0-9]+$'
 if ($gaId -and -not $gaOn) { $Warnings.Add("content/site.json: googleAnalyticsId '$gaId' doesn't look like G-XXXXXXXXXX, so no analytics tag was added.") }
 
+# Google Ads (content/site.json -> googleAdsId). Setting it adds the Ads tag AND the
+# advertising section of the privacy page, so the policy always matches the site.
+$adsId = [string]$site.googleAdsId
+$adsOn = $adsId -match '^AW-[0-9]+$'
+if ($adsId -and -not $adsOn) { $Warnings.Add("content/site.json: googleAdsId '$adsId' doesn't look like AW-123456789, so no Ads tag was added.") }
+
+# One gtag.js load serves both; each ID gets its own config line.
+$tagId = if ($gaOn) { $gaId } else { $adsId }
+$tagConfig = @()
+if ($gaOn) { $tagConfig += "  gtag('config', '$gaId');" }
+if ($adsOn) { $tagConfig += "  gtag('config', '$adsId');" }
+
 $logo1 = Svg-Inline 'option-1-nameplate.svg'
 $tokens = [ordered]@{
   shopLink  = $shopLink
@@ -95,10 +107,11 @@ $tokens = [ordered]@{
   year      = $year
   promo     = $promoHtml
   logo      = $logo1
-  gaId      = Enc $gaId
+  tagId     = Enc $tagId
+  tagConfig = $tagConfig -join "`n"
 }
 $partials = @{}
-foreach ($p in 'head', 'analytics', 'header', 'shop-header', 'footer', 'shop-footer', 'privacy-shop', 'privacy-analytics') {
+foreach ($p in 'head', 'analytics', 'header', 'shop-header', 'footer', 'shop-footer', 'privacy-shop', 'privacy-analytics', 'privacy-ads') {
   $partials[$p] = Fill (Read-Text (Join-Path $Root "partials/$p.html")) $tokens
 }
 
@@ -308,12 +321,18 @@ if ($gaOn) {
   $privacyAnalytics = $partials['privacy-analytics']
   $privacyTrackers = "<p>We don't sell your information, and we don't use advertising trackers on this site.</p>"
 }
+$privacyAds = ''
+if ($adsOn) {
+  $privacyAds = $partials['privacy-ads']
+  $privacyTrackers = "<p>We don't sell your information to data brokers or anyone else. The only sharing for advertising is described under Advertising below.</p>"
+}
 
 $regions = @{
   'shop-grid'     = $grid
   'privacy-shop'  = $privacyShop
   'privacy-analytics' = $privacyAnalytics
   'privacy-trackers'  = $privacyTrackers
+  'privacy-ads'       = $privacyAds
   'home-shop'     = $homeShop
   'shipping-flat' = Money $site.shopShippingFlat
   'ship-cutoff'   = Enc $site.shipCutoff
@@ -351,7 +370,7 @@ foreach ($file in $pages) {
 
   $head = $partials['head']
   if ($isShop -and -not $shopOn) { $head += "`n<meta name=""robots"" content=""noindex"">" }
-  if ($gaOn) { $head += "`n" + $partials['analytics'] }
+  if ($gaOn -or $adsOn) { $head += "`n" + $partials['analytics'] }
 
   $html = Read-Text $file.FullName
   $new = $html
