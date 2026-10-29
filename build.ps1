@@ -79,6 +79,12 @@ $shopOn = ($null -eq $site.shopEnabled) -or ($site.shopEnabled -eq $true)
 $shopLink = ''
 if ($shopOn) { $shopLink = '        <li><a href="/shop/">Shop</a></li>' }
 
+# Google Analytics (content/site.json -> googleAnalyticsId). Blank or missing: no tag,
+# and the privacy page says there are no analytics.
+$gaId = [string]$site.googleAnalyticsId
+$gaOn = $gaId -match '^G-[A-Z0-9]+$'
+if ($gaId -and -not $gaOn) { $Warnings.Add("content/site.json: googleAnalyticsId '$gaId' doesn't look like G-XXXXXXXXXX, so no analytics tag was added.") }
+
 $logo1 = Svg-Inline 'option-1-nameplate.svg'
 $tokens = [ordered]@{
   shopLink  = $shopLink
@@ -89,9 +95,10 @@ $tokens = [ordered]@{
   year      = $year
   promo     = $promoHtml
   logo      = $logo1
+  gaId      = Enc $gaId
 }
 $partials = @{}
-foreach ($p in 'head', 'header', 'shop-header', 'footer', 'shop-footer', 'privacy-shop') {
+foreach ($p in 'head', 'analytics', 'header', 'shop-header', 'footer', 'shop-footer', 'privacy-shop', 'privacy-analytics') {
   $partials[$p] = Fill (Read-Text (Join-Path $Root "partials/$p.html")) $tokens
 }
 
@@ -295,9 +302,18 @@ if (-not $shopOn) {
 $privacyShop = ''
 if ($shopOn) { $privacyShop = $partials['privacy-shop'] }
 
+$privacyAnalytics = ''
+$privacyTrackers = "<p>We don't sell your information. We don't use analytics or advertising trackers on this site.</p>"
+if ($gaOn) {
+  $privacyAnalytics = $partials['privacy-analytics']
+  $privacyTrackers = "<p>We don't sell your information, and we don't use advertising trackers on this site.</p>"
+}
+
 $regions = @{
   'shop-grid'     = $grid
   'privacy-shop'  = $privacyShop
+  'privacy-analytics' = $privacyAnalytics
+  'privacy-trackers'  = $privacyTrackers
   'home-shop'     = $homeShop
   'shipping-flat' = Money $site.shopShippingFlat
   'ship-cutoff'   = Enc $site.shipCutoff
@@ -335,6 +351,7 @@ foreach ($file in $pages) {
 
   $head = $partials['head']
   if ($isShop -and -not $shopOn) { $head += "`n<meta name=""robots"" content=""noindex"">" }
+  if ($gaOn) { $head += "`n" + $partials['analytics'] }
 
   $html = Read-Text $file.FullName
   $new = $html
